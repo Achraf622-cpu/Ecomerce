@@ -1,34 +1,46 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace App\Models;
 
-class CreateProductsTable extends Migration
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class Product extends Model
 {
-    public function up()
-    {
-        Schema::create('products', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
-            $table->text('description');
-            $table->decimal('price', 10, 2);
-            $table->integer('stock');
-            $table->unsignedBigInteger('category_id');
-            $table->string('image')->nullable();
-            $table->enum('status', ['ACTIVE', 'INACTIVE', 'OUT_OF_STOCK'])->default('ACTIVE');
-            $table->timestamps();
+    use HasFactory;
 
-            $table->foreign('category_id')
-                ->references('id')
-                ->on('categories')
-                ->onDelete('cascade');
-        });
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'price',
+        'stock',
+        'category_id',
+        'image',
+        'status'
+    ];
+
+    protected $casts = [
+        'price' => 'decimal:2'
+    ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
-    public function down()
+    public function reviews()
     {
-        Schema::dropIfExists('products');
+        return $this->hasMany(Review::class);
+    }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
     }
 }
