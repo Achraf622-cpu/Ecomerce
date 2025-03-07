@@ -56,12 +56,10 @@
                         <a href="{{ route('profile.show') }}" class="text-white hover:text-blue-400 transition-colors flex items-center">
                             <i class="fas fa-user mr-2"></i> {{ Auth::user()->name }}
                         </a>
-                        <form method="POST" action="{{ route('logout') }}" class="inline">
-                            @csrf
-                            <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-xl transition-colors flex items-center">
-                                <i class="fas fa-sign-out-alt mr-2"></i> Déconnexion
-                            </button>
-                        </form>
+                        <a href="{{ route('logout') }}" class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-xl transition-colors flex items-center">
+                            <i class="fas fa-sign-out-alt mr-2"></i> Déconnexion
+                        </a>
+
                     </div>
                 @else
                     <a href="{{ route('login') }}" class="px-4 py-2 text-white hover:text-blue-400 transition-colors">Connexion</a>
