@@ -81,13 +81,23 @@
                     </div>
 
                     <!-- Boutons Auth -->
+                    <!-- Boutons Auth -->
                     <div class="flex items-center space-x-4">
-                        <a href="{{ route('login') }}" class="px-4 py-2 text-white hover:text-blue-400 transition-colors">
-                            Connexion
-                        </a>
-                        <a href="{{ route('register') }}" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-all transform hover:scale-105">
-                            Inscription
-                        </a>
+                        @if(auth()->check())
+                            <a href="{{ route('profile.show') }}" class="px-4 py-2 text-white hover:text-blue-400 transition-colors">
+                                Mon Profil
+                            </a>
+                            <a href="{{ route('logout') }}" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-full transition-all transform hover:scale-105">
+                                Déconnexion
+                            </a>
+                        @else
+                            <a href="{{ route('login') }}" class="px-4 py-2 text-white hover:text-blue-400 transition-colors">
+                                Connexion
+                            </a>
+                            <a href="{{ route('register') }}" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-all transform hover:scale-105">
+                                Inscription
+                            </a>
+                        @endif
                     </div>
 
                     <!-- Menu Mobile (hamburger) -->
